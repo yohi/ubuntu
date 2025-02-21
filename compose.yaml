@@ -1,0 +1,8 @@
+services:
+  ubuntu:
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/home/yohi
