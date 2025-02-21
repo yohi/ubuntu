@@ -13,12 +13,18 @@ RUN git clone https://github.com/neovim/neovim \
     && make install
 
 # Add yohi user 
-ARG USERNAME=yohi
-ARG GROUPNAME=yohi
-ARG UID=1000
-ARG GID=1000
+ARG USERNAME
+# ARG GROUPNAME=yohi
+ARG UID
+ARG GID
+
+ENV UID ${UID}
+ENV GID ${GID}
+ENV USERNAME ${USERNAME}
 
 RUN useradd -m -s /bin/bash ${USERNAME} && echo "${USERNAME}:password" | chpasswd && usermod -aG sudo ${USERNAME}
+# RUN groupadd -g ${GID} ${USERNAME}
+# RUN useradd -u ${UID} -g ${USERNAME} -m ${USERNAME}
 
 WORKDIR /home/$USERNAME/
 
@@ -32,6 +38,9 @@ RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
 
 # Change to yohi user
 USER $USERNAME
+
+COPY --chown=$USERNAME:$USERNAME ./dotfiles /home/$USERNAME/dotfiles
+RUN mkdir /home/$USERNAME/.config && ln -nfs /home/$USERNAME/dotfiles/vim/ .config/nvim
 
 
 # WORKDIR /neovim
@@ -85,3 +94,12 @@ USER $USERNAME
 # 
 # CMD ["nvim"]
 CMD ["bash"]
+
+
+
+# mkdir -p .config
+# ln -nfs dots/vim .vim
+# ln -nfs dots/vim/rc/vimrc .vimrc
+# ln -nfs dots/vim/rc/gvimrc .gvimrc
+# ln -nfs dots/vim .config/nvim
+# ln -nfs dots/vim/rc/vimrc .config/nvim/init.vim
