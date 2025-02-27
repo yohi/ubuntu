@@ -2,9 +2,32 @@ FROM ubuntu:24.04
 
 RUN apt-get update && apt-get upgrade -y
 
-RUN apt-get -y install git ninja-build gettext cmake unzip curl xsel nodejs npm python3-venv
+RUN apt-get -y install \
+    git \
+    ninja-build \
+    gettext \
+    cmake \
+    unzip \
+    curl \
+    xsel \
+    nodejs \
+    npm \
+    python3-venv \
+    sudo \
+    wget \
+    xclip \
+    language-pack-ja \
+    build-essential
 
-RUN apt-get -y install sudo 
+# ホームディレクトリを英語名にする
+# RUN LANG=C xdg-user-dirs-gtk-update
+
+# Ubuntu Japanese
+RUN wget https://www.ubuntulinux.jp/ubuntu-jp-ppa-keyring.gpg -P /etc/apt/trusted.gpg.d/
+RUN wget https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -P /etc/apt/trusted.gpg.d/
+RUN wget https://www.ubuntulinux.jp/sources.list.d/jammy.list -O /etc/apt/sources.list.d/ubuntu-ja.list
+RUN sudo apt update && apt install -y ubuntu-defaults-ja
+
 
 # Install Neovim
 RUN git clone https://github.com/neovim/neovim \
