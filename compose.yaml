@@ -13,7 +13,9 @@ services:
       watch:
         - action: sync
           path: ./dotfiles
-          target: /home/yohi/dotfiles
+          target: /home/y_ohi/dotfiles
+          ignore:
+            - .git
     # volumes:
     #   # - .dots/:/home/yohi/dotfiles
     #   - ./dotfiles/:/home/yohi/dotfiles:cached
