@@ -26,7 +26,7 @@ RUN apt-get -y install \
 RUN wget https://www.ubuntulinux.jp/ubuntu-jp-ppa-keyring.gpg -P /etc/apt/trusted.gpg.d/
 RUN wget https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -P /etc/apt/trusted.gpg.d/
 RUN wget https://www.ubuntulinux.jp/sources.list.d/jammy.list -O /etc/apt/sources.list.d/ubuntu-ja.list
-RUN sudo apt update && apt install -y ubuntu-defaults-ja
+RUN apt update && apt install -y ubuntu-defaults-ja
 
 
 # Install Neovim
